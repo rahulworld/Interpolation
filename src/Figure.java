@@ -33,7 +33,7 @@ public class Figure {
         chart.setTitle(name);
         ChartPanel chartPanel = new ChartPanel(chart);       
         frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
-        frame.setSize(400, 400);       
+        frame.setSize(400, 200);       
         frame.setVisible(true);       
     }
 

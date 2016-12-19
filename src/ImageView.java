@@ -9,7 +9,7 @@ public class ImageView extends JFrame{
     private SignalPanel signalPanel;
     
     public ImageView(){                     
-        setTitle("Image");      
+        setTitle("Rahul");      
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(200, 200);       
         signalPanel = new SignalPanel();                 

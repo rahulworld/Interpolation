@@ -112,12 +112,13 @@ public class CubicInterpolation2d {
             new BufferedImage(array[0].length,array.length,
                               BufferedImage.TYPE_INT_RGB);  
         for( int y = 0; y < array.length; y++ ){
-            for( int x = 0; x < array[0].length; x++ ){     
-                 int value = 
-                    (int)array[y][x] << 16 | 
-                    (int)array[y][x] << 8 | 
-                    (int)array[y][x];
-                 image.setRGB(x, y, value);                                                   
+            for( int x = 0; x < array[0].length; x++ ){ 
+//                 int value = 
+//                    (int)array[y][x] << 16 | 
+//                    (int)array[y][x] << 8 | 
+//                    (int)array[y][x];
+//                 image.setRGB(x, y, value);                                                   
+                 image.setRGB(x, y, (int)array[y][x]);
             }
         }       
         return image;
