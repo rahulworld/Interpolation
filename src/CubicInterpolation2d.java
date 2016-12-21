@@ -113,12 +113,12 @@ public class CubicInterpolation2d {
                               BufferedImage.TYPE_INT_RGB);  
         for( int y = 0; y < array.length; y++ ){
             for( int x = 0; x < array[0].length; x++ ){ 
-//                 int value = 
-//                    (int)array[y][x] << 16 | 
-//                    (int)array[y][x] << 8 | 
-//                    (int)array[y][x];
-//                 image.setRGB(x, y, value);                                                   
-                 image.setRGB(x, y, (int)array[y][x]);
+                 int value = 
+                    (int)array[y][x] << 16 | 
+                    (int)array[y][x] << 8 | 
+                    (int)array[y][x];
+                 image.setRGB(x, y, value);                                                   
+                 
             }
         }       
         return image;
@@ -127,7 +127,7 @@ public class CubicInterpolation2d {
     public static void main(String[] args){
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("./data/img7.jpg"));
+            image = ImageIO.read(new File("./data/take3.png"));
         } catch (IOException e) {
         	System.out.println("Error in Main Function");
         }
