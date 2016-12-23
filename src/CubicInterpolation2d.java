@@ -126,18 +126,23 @@ public class CubicInterpolation2d {
     
     public static void main(String[] args){
         BufferedImage image = null;
-        Blender1 blen=new Blender1();
-        BufferedImage[] fuse=null;
-        BufferedImage TMC_IMG=null;
-        BufferedImage[] Hysi_Img=null; 
-        for(int i=0;i<64;i++){
-        	fuse[i]=blen.blend(Hysi_Img[i], TMC_IMG, 1/64);
-        }
-        try {
-            image = ImageIO.read(new File("./data/take3.png"));
-        } catch (IOException e) {
-        	System.out.println("Error in Main Function");
-        }
+        BufferedImage bufferImage=null;
+//        Blender1 blen=new Blender1();
+//        BufferedImage[] fuse=null;
+//        BufferedImage TMC_IMG=null;
+//        BufferedImage[] Hysi_Img=null; 
+//        for(int i=0;i<64;i++){
+//        	fuse[i]=blen.blend(Hysi_Img[i], TMC_IMG, 1/64);
+//        }
+        Blender1 blender = new Blender1();
+		try {
+//			blender.bi1 = ImageIO.read(new File("./data/take1.png"));
+//			blender.bi2 = ImageIO.read(new File("./data/take2.png"));
+//			image = blender.blend(blender.bi1, blender.bi2, 0.50);
+			image = ImageIO.read(new File("./data/take3.png"));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
         if (image != null){
             ImageView imageView = new ImageView();
             imageView.drawImage(image);
