@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
@@ -108,14 +109,14 @@ public class CubicInterpolation2d {
     }
     
     private BufferedImage doubleArrayToImage(double[][] array){     
-//        BufferedImage image = new BufferedImage(array[0].length,array.length,BufferedImage.TYPE_INT_RGB);  
-//        for( int y = 0; y < array.length; y++ ){
-//            for( int x = 0; x < array[0].length; x++ ){ 
-//                 int value = (int)array[y][x] << 16|(int)array[y][x] << 8|(int)array[y][x];
-//                 image.setRGB(x, y, value);                                                   
-//            }
-//        }       
-//        return image;
+        BufferedImage image = new BufferedImage(array[0].length,array.length,BufferedImage.TYPE_INT_RGB);  
+        for( int y = 0; y < array.length; y++ ){
+            for( int x = 0; x < array[0].length; x++ ){ 
+                 int value = (int)array[y][x] << 16|(int)array[y][x] << 8|(int)array[y][x];
+                 image.setRGB(x, y, value);                                                   
+            }
+        }       
+        return image;
     	
     	
 //    	BufferedImage bi3 = new BufferedImage(array.length,array[0].length, BufferedImage.TYPE_INT_RGB);
@@ -135,13 +136,13 @@ public class CubicInterpolation2d {
 //		}
 //		return bi3;
     	
-    	BufferedImage image = new BufferedImage(array.length, array[0].length, BufferedImage.TYPE_INT_RGB);
-        for (int x = 0; x < array.length; x++) { // b is my 2D array
-            for (int y = 0; y < array[x].length; y++) {
-                image.setRGB(x, y, (int)array[y][x]);
-            }
-        }
-        return image;
+//    	BufferedImage image = new BufferedImage(array.length, array[0].length, BufferedImage.TYPE_INT_RGB);
+//        for (int x = 0; x < array.length; x++) { // b is my 2D array
+//            for (int y = 0; y < array[x].length; y++) {
+//                image.setRGB(x, y, (int)array[y][x]);
+//            }
+//        }
+//        return image;
     }
     
     public static void main(String[] args){
@@ -159,7 +160,7 @@ public class CubicInterpolation2d {
 			blender.bi1 = ImageIO.read(new File("./data/take1.png"));
 			blender.bi2 = ImageIO.read(new File("./data/take2.png"));
 			image = blender.blend(blender.bi1, blender.bi2, 0.50);
-			image = ImageIO.read(new File("./data/take3.png"));
+			//image = ImageIO.read(new File("./data/take3.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
