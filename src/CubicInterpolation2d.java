@@ -108,19 +108,39 @@ public class CubicInterpolation2d {
     }
     
     private BufferedImage doubleArrayToImage(double[][] array){     
-        BufferedImage image = 
-            new BufferedImage(array[0].length,array.length,
-                              BufferedImage.TYPE_INT_RGB);  
-        for( int y = 0; y < array.length; y++ ){
-            for( int x = 0; x < array[0].length; x++ ){ 
-                 int value = 
-                    (int)array[y][x] << 16 | 
-                    (int)array[y][x] << 8 | 
-                    (int)array[y][x];
-                 image.setRGB(x, y, value);                                                   
-                 
+//        BufferedImage image = new BufferedImage(array[0].length,array.length,BufferedImage.TYPE_INT_RGB);  
+//        for( int y = 0; y < array.length; y++ ){
+//            for( int x = 0; x < array[0].length; x++ ){ 
+//                 int value = (int)array[y][x] << 16|(int)array[y][x] << 8|(int)array[y][x];
+//                 image.setRGB(x, y, value);                                                   
+//            }
+//        }       
+//        return image;
+    	
+    	
+//    	BufferedImage bi3 = new BufferedImage(array.length,array[0].length, BufferedImage.TYPE_INT_RGB);
+//		int[] rgbim3 = new int[array.length];
+//
+//		for (int row = 0; row < array[0].length; row++) {
+//			//bi1.getRGB(0, row, array.length, 1, rgbim1, 0, array.length);
+//
+//			for (int col = 0; col < array.length; col++) {
+//				int rgb1 =(int)array[row][col];
+//				int r3 = (rgb1 >> 16) & 255;
+//				int g3 = (rgb1 >> 8) & 255;
+//				int b3 = rgb1 & 255;
+//				rgbim3[col] = (r3 << 16) | (g3 << 8) | b3;
+//			}
+//			bi3.setRGB(0, row, array.length, 1, rgbim3, 0, array.length);
+//		}
+//		return bi3;
+    	
+    	BufferedImage image = new BufferedImage(array.length, array[0].length, BufferedImage.TYPE_INT_RGB);
+        for (int x = 0; x < array.length; x++) { // b is my 2D array
+            for (int y = 0; y < array[x].length; y++) {
+                image.setRGB(x, y, (int)array[y][x]);
             }
-        }       
+        }
         return image;
     }
     
@@ -136,9 +156,9 @@ public class CubicInterpolation2d {
 //        }
         Blender1 blender = new Blender1();
 		try {
-//			blender.bi1 = ImageIO.read(new File("./data/take1.png"));
-//			blender.bi2 = ImageIO.read(new File("./data/take2.png"));
-//			image = blender.blend(blender.bi1, blender.bi2, 0.50);
+			blender.bi1 = ImageIO.read(new File("./data/take1.png"));
+			blender.bi2 = ImageIO.read(new File("./data/take2.png"));
+			image = blender.blend(blender.bi1, blender.bi2, 0.50);
 			image = ImageIO.read(new File("./data/take3.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -146,12 +166,9 @@ public class CubicInterpolation2d {
         if (image != null){
             ImageView imageView = new ImageView();
             imageView.drawImage(image);
-            CubicInterpolation2d cubicInterpolation2d = 
-                    new CubicInterpolation2d();
-            double [][] img = 
-                    cubicInterpolation2d.imageToDoubleArray(image);
-            double [][] img_interp = 
-                    cubicInterpolation2d.interpolate(img,2);
+            CubicInterpolation2d cubicInterpolation2d = new CubicInterpolation2d();
+            double [][] img = cubicInterpolation2d.imageToDoubleArray(image);
+            double [][] img_interp = cubicInterpolation2d.interpolate(img,2);
 //            for(int i = 0; i<img_interp.length; i++)
 //            {
 //                for(int j = 0; j<img_interp[0].length; j++)
@@ -160,8 +177,7 @@ public class CubicInterpolation2d {
 //                }
 //                System.out.println();
 //            }
-            BufferedImage imageInterp = 
-                    cubicInterpolation2d.doubleArrayToImage(img_interp);
+            BufferedImage imageInterp = cubicInterpolation2d.doubleArrayToImage(img_interp);
             ImageView imageView2 = new ImageView();
             imageView2.drawImage(imageInterp);  
         }
