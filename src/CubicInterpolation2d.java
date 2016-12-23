@@ -126,6 +126,13 @@ public class CubicInterpolation2d {
     
     public static void main(String[] args){
         BufferedImage image = null;
+        Blender1 blen=new Blender1();
+        BufferedImage[] fuse=null;
+        BufferedImage TMC_IMG=null;
+        BufferedImage[] Hysi_Img=null; 
+        for(int i=0;i<64;i++){
+        	fuse[i]=blen.blend(Hysi_Img[i], TMC_IMG, 1/64);
+        }
         try {
             image = ImageIO.read(new File("./data/take3.png"));
         } catch (IOException e) {
