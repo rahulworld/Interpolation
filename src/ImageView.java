@@ -11,7 +11,7 @@ public class ImageView extends JFrame{
     public ImageView(){                     
         setTitle("Rahul");      
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(200, 200);       
+        setSize(200, 1000);       
         signalPanel = new SignalPanel();                 
         getContentPane().add(signalPanel);          
         setVisible(true);        

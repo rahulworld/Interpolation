@@ -105,7 +105,7 @@ public class CubicInterpolation2d {
                 array[y][x] = raster.getSampleDouble(x, y, 0);                      
             }            
         }           
-        return array;       
+        return array;
     }
     
     private BufferedImage doubleArrayToImage(double[][] array){     
@@ -157,9 +157,15 @@ public class CubicInterpolation2d {
 //        }
         Blender1 blender = new Blender1();
 		try {
-			blender.bi1 = ImageIO.read(new File("./data/take1.png"));
-			blender.bi2 = ImageIO.read(new File("./data/take2.png"));
-			image = blender.blend(blender.bi1, blender.bi2, 0.50);
+			ImageView imageView = new ImageView();
+			ImageView imageView1 = new ImageView();
+			blender.bi1 = ImageIO.read(new File("./data/tmc2561.png"));
+			blender.bi2 = ImageIO.read(new File("./data/rgb123.png"));
+			
+			imageView.drawImage(blender.bi1);
+			imageView1.drawImage(blender.bi2);
+			image = blender.blend(blender.bi1, blender.bi2, 0.80);
+			ImageIO.write(image, "PNG", new File("./data/saras11.png"));
 			//image = ImageIO.read(new File("./data/take3.png"));
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -169,7 +175,7 @@ public class CubicInterpolation2d {
             imageView.drawImage(image);
             CubicInterpolation2d cubicInterpolation2d = new CubicInterpolation2d();
             double [][] img = cubicInterpolation2d.imageToDoubleArray(image);
-            double [][] img_interp = cubicInterpolation2d.interpolate(img,2);
+            double [][] img_interp = cubicInterpolation2d.interpolate(img,3);
 //            for(int i = 0; i<img_interp.length; i++)
 //            {
 //                for(int j = 0; j<img_interp[0].length; j++)
@@ -179,6 +185,12 @@ public class CubicInterpolation2d {
 //                System.out.println();
 //            }
             BufferedImage imageInterp = cubicInterpolation2d.doubleArrayToImage(img_interp);
+            try {
+				ImageIO.write(imageInterp, "PNG", new File("./data/interpolate2.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             ImageView imageView2 = new ImageView();
             imageView2.drawImage(imageInterp);  
         }
