@@ -94,44 +94,46 @@ public class Blender1 extends JFrame {
 
 		return bi3;
 	}
-	public BufferedImage blendHysi(BufferedImage[] bi1, double weight) {
-		if (bi1 == null) throw new NullPointerException("bi1 is null");
+	public BufferedImage blendHysi(BufferedImage[] bi, double weight) {
+//		if (bi == null) throw new NullPointerException("bi1 is null");
 
 //		if (bi2 == null) throw new NullPointerException("bi2 is null");
 
-		int width = bi1[0].getWidth();
+		int width = bi[1].getWidth();
 //		if (width != bi2.getWidth()) throw new IllegalArgumentException("widths not equal");
 
-		int height = bi1[0].getHeight();
+		int height = bi[1].getHeight();
 //		if (height != bi2.getHeight()) throw new IllegalArgumentException("heights not equal");
 
 		BufferedImage bi3 = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		int[] rgbim1 = new int[width];
-		int[] rgbim2 = new int[width];
-		int[] rgbim3 = new int[width];
+		int rgbim[][] = new int[65][width];
+		int rgbim65[] = new int[width];
 
 		for (int row = 0; row < height; row++) {
-			bi1.getRGB(0, row, width, 1, rgbim1, 0, width);
-			bi2.getRGB(0, row, width, 1, rgbim2, 0, width);
-
+			for(int l=1;l<=64;l++){
+				bi[l].getRGB(0, row, width, 1, rgbim[l], 0, width);				
+			}
+			int[] r=new int[65];
+			int[] g=new int[65];
+			int[] b=new int[65];
 			for (int col = 0; col < width; col++) {
-				int rgb1 = rgbim1[col];
-				int r1 = (rgb1 >> 16) & 255;
-				int g1 = (rgb1 >> 8) & 255;
-				int b1 = rgb1 & 255;
-
-				int rgb2 = rgbim2[col];
-				int r2 = (rgb2 >> 16) & 255;
-				int g2 = (rgb2 >> 8) & 255;
-				int b2 = rgb2 & 255;
-
-				int r3 = (int)(r1 * weight + r2 * (1.0 - weight));
-				int g3 = (int)(g1 * weight + g2 * (1.0 - weight));
-				int b3 = (int)(b1 * weight + b2 * (1.0 - weight));
-				rgbim3[col] = (r3 << 16) | (g3 << 8) | b3;
+				int rgb[]=new int[65];
+				for(int k=1;k<=64;k++){					
+					rgb[k] =rgbim[k][col];
+					r[k] = (rgb[k] >> 16) & 255;
+					g[k] = (rgb[k] >> 8) & 255;
+					b[k] = rgb[k] & 255;
+				}
+				int r65=0,g65=0,b65=0;
+				for(int m=1;m<=64;m++){					
+					r65 += (int)(r[m] * weight);
+					g65 += (int)(g[m] * weight);
+					b65 += (int)(b[m] * weight);
+				}
+				rgbim65[col] = (r65 << 16) | (g65 << 8) | b65;
 			}
 
-			bi3.setRGB(0, row, width, 1, rgbim3, 0, width);
+			bi3.setRGB(0, row, width, 1, rgbim65, 0, width);
 		}
 
 		return bi3;
