@@ -164,7 +164,7 @@ public class CubicInterpolation2d {
 			
 			imageView.drawImage(blender.bi1);
 			imageView1.drawImage(blender.bi2);
-			image = blender.blend(blender.bi1, blender.bi2, 0.80);
+			image = blender.blend(blender.bi1, blender.bi2, 0.65);
 			ImageIO.write(image, "PNG", new File("./data/saras11.png"));
 			//image = ImageIO.read(new File("./data/take3.png"));
 		} catch(IOException e) {
