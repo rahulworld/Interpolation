@@ -231,14 +231,14 @@ public class CubicInterpolation2d {
 				e.printStackTrace();
 		}
         for(int i=1;i<=64;i++){
-        	fuse[i]=blen.blend(Hysi_Img[i], TMC_IMG,0.3);
+        	fuse[i]=blen.blend(Hysi_Img[i], TMC_IMG,0.2);
         }
 		ImageView imageView3 = new ImageView();
 		ImageView imageView1 = new ImageView();
-		imageView3.drawImage(fuse[55]);
+		imageView3.drawImage(fuse[64]);
 		imageView1.drawImage(fuse[25]);
         Blender1 blender3 = new Blender1();
-        image=blender3.blendHysi(fuse,0.05);
+        image=blender3.blendHysi(fuse,0.01);
 		try {
 //			Blender1 blender = new Blender1();
 //			ImageView imageView = new ImageView();
@@ -259,7 +259,7 @@ public class CubicInterpolation2d {
             imageView.drawImage(image);
             CubicInterpolation2d cubicInterpolation2d = new CubicInterpolation2d();
             double [][] img = cubicInterpolation2d.imageToDoubleArray(image);
-            double [][] img_interp = cubicInterpolation2d.interpolate(img,1);
+            double [][] img_interp = cubicInterpolation2d.interpolate(img,2);
 //            for(int i = 0; i<img_interp.length; i++)
 //            {
 //                for(int j = 0; j<img_interp[0].length; j++)
