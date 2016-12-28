@@ -1,11 +1,7 @@
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import javax.imageio.ImageIO;
 
 public class CubicInterpolation2d {
@@ -110,7 +106,7 @@ public class CubicInterpolation2d {
         return array;
     }
     
-    private BufferedImage doubleArrayToImage(double[][] array){     
+    public BufferedImage doubleArrayToImage(double[][] array){     
         BufferedImage image = new BufferedImage(array[0].length,array.length,BufferedImage.TYPE_INT_RGB);  
         for( int y = 0; y < array.length; y++ ){
             for( int x = 0; x < array[0].length; x++ ){ 
