@@ -80,6 +80,7 @@ public class CubicInterpolation2d {
     }
     
     
+    
     public double[][] interpolate(double[][] s, int rate){
         double [][] coeffs_mirror = cubicCoeff2d(s);        
         int M = rate*s.length - (rate-1);
@@ -92,6 +93,23 @@ public class CubicInterpolation2d {
             }
         }                                                                                                       
         return s_interp;                    
+    }
+    public double[][] mixingOfCurveUsingBspline(double[][] s1,double[][] s2, int rate){
+        double [][] coeffs_mirror1 = cubicCoeff2d(s1);
+        double [][] coeffs_mirror2 = cubicCoeff2d(s2);
+        int M1 = rate*s1.length - (rate-1);
+        int N1 = rate*s1[0].length - (rate-1);
+        int M2 = rate*s1.length - (rate-1);
+        int N2 = rate*s1[0].length - (rate-1);
+        double [][] s_interp1 = new double[M1][N1];
+        double [][] s_interp2 = new double[M2][N2];
+        for(int k=0; k<s_interp1.length; k++){
+            for(int l=0; l<s_interp1[0].length; l++){
+                s_interp1[k][l] = 
+                    cubicInterp2d(coeffs_mirror1,coeffs_mirror2, k*(1.0/rate), l*(1.0/rate));
+            }
+        }                                                                                                       
+        return s_interp1;                    
     }
     
     
