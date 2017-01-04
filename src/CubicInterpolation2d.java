@@ -51,9 +51,7 @@ public class CubicInterpolation2d {
     }
     
 
-    public double cubicInterp2d(double[][] coeffs_mirror, 
-                                double row, 
-                                double col){    
+    public double cubicInterp2d(double[][] coeffs_mirror, double row, double col){    
         int k = (int)Math.floor(row);   
         int l = (int)Math.floor(col);       
         double interp_value =   
@@ -78,8 +76,31 @@ public class CubicInterpolation2d {
         coeffs_mirror[k+3][l+3]*bS.bspline(3,row-k-2)*bS.bspline(3,col-l-2);                                        
         return interp_value;
     }
-    
-    
+    public double MixingAndFusionOfTwoCurve(double[][] coeffs_mirror1,double[][] coeffs_mirror2, double row, double col){    
+        int k = (int)Math.floor(row);   
+        int l = (int)Math.floor(col);       
+        double interp_value =   
+        coeffs_mirror1[k+0][l+0]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+1)*bS.bspline(3,col-l+1)+ 
+        coeffs_mirror1[k+1][l+0]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+0)*bS.bspline(3,col-l+1)+
+        coeffs_mirror1[k+2][l+0]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-1)*bS.bspline(3,col-l+1)+
+        coeffs_mirror1[k+3][l+0]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-2)*bS.bspline(3,col-l+1)+
+                                                                    
+        coeffs_mirror1[k+0][l+1]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+1)*bS.bspline(3,col-l+0)+ 
+        coeffs_mirror1[k+1][l+1]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+0)*bS.bspline(3,col-l+0)+
+        coeffs_mirror1[k+2][l+1]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-1)*bS.bspline(3,col-l+0)+
+        coeffs_mirror1[k+3][l+1]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-2)*bS.bspline(3,col-l+0)+
+                                                                                                
+        coeffs_mirror1[k+0][l+2]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+1)*bS.bspline(3,col-l-1)+ 
+        coeffs_mirror1[k+1][l+2]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+0)*bS.bspline(3,col-l-1)+
+        coeffs_mirror1[k+2][l+2]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-1)*bS.bspline(3,col-l-1)+
+        coeffs_mirror1[k+3][l+2]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-2)*bS.bspline(3,col-l-1)+
+                                                
+        coeffs_mirror1[k+0][l+3]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+1)*bS.bspline(3,col-l-2)+ 
+        coeffs_mirror1[k+1][l+3]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k+0)*bS.bspline(3,col-l-2)+
+        coeffs_mirror1[k+2][l+3]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-1)*bS.bspline(3,col-l-2)+
+        coeffs_mirror1[k+3][l+3]*coeffs_mirror2[k+0][l+0]*bS.bspline(3,row-k-2)*bS.bspline(3,col-l-2);                                        
+        return interp_value;
+    }
     
     public double[][] interpolate(double[][] s, int rate){
         double [][] coeffs_mirror = cubicCoeff2d(s);        
@@ -99,19 +120,14 @@ public class CubicInterpolation2d {
         double [][] coeffs_mirror2 = cubicCoeff2d(s2);
         int M1 = rate*s1.length - (rate-1);
         int N1 = rate*s1[0].length - (rate-1);
-        int M2 = rate*s1.length - (rate-1);
-        int N2 = rate*s1[0].length - (rate-1);
         double [][] s_interp1 = new double[M1][N1];
-        double [][] s_interp2 = new double[M2][N2];
         for(int k=0; k<s_interp1.length; k++){
             for(int l=0; l<s_interp1[0].length; l++){
-                s_interp1[k][l] = 
-                    cubicInterp2d(coeffs_mirror1,coeffs_mirror2, k*(1.0/rate), l*(1.0/rate));
+                s_interp1[k][l]=MixingAndFusionOfTwoCurve(coeffs_mirror1,coeffs_mirror2, k*(1.0/rate), l*(1.0/rate));
             }
         }                                                                                                       
         return s_interp1;                    
     }
-    
     
     private double[][] imageToDoubleArray(BufferedImage image){   
         double[][] array = new double[image.getHeight()][image.getWidth()];     
