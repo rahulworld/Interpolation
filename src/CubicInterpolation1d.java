@@ -38,44 +38,4 @@ public class CubicInterpolation1d {
         }
         return s_interp;    
     }
-    
-    public static void main(String[] args){
-        
-        double y[] = {  0.2486289591,
-                        0.4516387582,
-                        0.2277128249,
-                        0.8044495583,
-                        0.9861042500,
-                        0.0299919508,
-                        0.5356642008,
-                        0.0870772228,
-                        0.8020914197,
-                        0.9891449213,
-                        0.0669462606,
-                        0.9393983483,
-                        0.0181775335,
-                        0.6838386059,
-                        0.7837364674,
-                        0.5341375470,
-                        0.8853594661,
-                        0.8990048766,
-                        0.6259376407,
-                        0.1378689855
-                    };
-        double x[] = new double[y.length];
-        for(int k=0; k<y.length; k++){
-            x[k] = k;
-        }
-        int rate = 6;
-        CubicInterpolation1d cubicInterpolation1d = 
-                new CubicInterpolation1d();
-        double y_interp[] = cubicInterpolation1d.interpolate(y,rate); 
-        double x_interp[] = new double[y_interp.length];
-        for(int k=0; k<x_interp.length; k++){
-            x_interp[k] = (double)k/(double)rate;
-        }       
-        Figure figure = new Figure("Spline interpolation","","");
-        figure.stem(x,y, Color.BLUE, 1.0f);
-        figure.line(x_interp, y_interp, Color.RED, 2.0f);       
-    }
 }

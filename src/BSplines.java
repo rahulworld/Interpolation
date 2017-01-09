@@ -90,11 +90,5 @@ public class BSplines {
             b2[k]= bSplines.bspline(2,x[k]-2);
             b3[k]= bSplines.bspline(3,x[k]-3);          
         }
-
-        Figure figure = new Figure("bsplines","x","betta");
-        figure.line(x,b0, Color.BLUE, 2.0f);
-        figure.line(x,b1, Color.RED, 2.0f);
-        figure.line(x,b2, Color.BLACK, 2.0f);
-        figure.line(x,b3, Color.MAGENTA, 2.0f);
     }
 }
