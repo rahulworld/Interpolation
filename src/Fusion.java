@@ -78,7 +78,7 @@ public class Fusion {
         double [][] coeffs_mirror = cubicCoeff2d(s);        
         int M = rate*s.length - (rate-1);
         int N = rate*s[0].length - (rate-1);
-        double [][] s_interp = new double[M][N];        
+        double [][] s_interp = new double[M][N];
         for(int k=0; k<s_interp.length; k++){
             for(int l=0; l<s_interp[0].length; l++){
                 s_interp[k][l] = 
@@ -110,7 +110,9 @@ public class Fusion {
     }
 	public static void main(String[] args){
         BufferedImage image = null;
-        Blender1 blen=new Blender1();
+        double [][] img=null;
+        double [][] img_interp=null;
+        Mixer blen=new Mixer();
         BufferedImage[] fuse=new BufferedImage[65];
         BufferedImage[] Hysi_Img=new BufferedImage[65];
         BufferedImage[] final_Img=new BufferedImage[65];
@@ -128,17 +130,23 @@ public class Fusion {
         for(int i=1;i<=64;i++){
         	fuse[i]=blen.blend(Hysi_Img[i], TMC_IMG,0.3);
         }
+        ImageView imageView41 = new ImageView();
+		ImageView imageView31 = new ImageView();
+		ImageView imageView11 = new ImageView();
+		imageView41.drawImage(fuse[2]);
+		imageView31.drawImage(fuse[3]);
+		imageView11.drawImage(fuse[6]);
         for(int i=1;i<=64;i++){
             Fusion cubicInterpolation2d = new Fusion();
-            double [][] img = cubicInterpolation2d.imageToDoubleArray(fuse[i]);
-            double [][] img_interp = cubicInterpolation2d.interpolate(img,2);
+            img = cubicInterpolation2d.imageToDoubleArray(fuse[i]);
+            img_interp = cubicInterpolation2d.interpolate(img,2);
             final_Img[i]= cubicInterpolation2d.doubleArrayToImage(img_interp);
             System.out.println("Complete  "+i);
         }
-		ImageView imageView3 = new ImageView();
-		ImageView imageView1 = new ImageView();
-		imageView3.drawImage(final_Img[2]);
-		imageView1.drawImage(final_Img[6]);
+		ImageView imageView7 = new ImageView();
+		ImageView imageView8 = new ImageView();
+		imageView7.drawImage(final_Img[2]);
+		imageView8.drawImage(final_Img[6]);
         if (final_Img != null){
             ImageView imageView = new ImageView();
             imageView.drawImage(image);

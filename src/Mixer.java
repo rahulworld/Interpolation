@@ -1,31 +1,19 @@
 import java.awt. * ;
 import java.awt.image. * ;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing. * ;
 import javax.swing.event. * ;
 
-public class Blender1 extends JFrame {
-/**
-  * Construct Blender1 GUI.
-  */
+public class Mixer extends JFrame {
 	BufferedImage bi1 = null;
 	BufferedImage bi2 = null;
 	public void ImageFusion(){
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		jSliderMixture();
 	}
-	
 	public void jSliderMixture(){
-		// Create an image panel capable of displaying entire image. The widths
-		// of both images and the heights of both images must be identical.
 		final ImagePanel ip = new ImagePanel();
 		ip.setPreferredSize(new Dimension(bi1.getWidth(), bi1.getHeight()));
 		getContentPane().add(ip, BorderLayout.NORTH);
-
-		// Create a slider for selecting the blending percentage: 100% means
-		// show all of first image; 0% means show all of second image.
 		final JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
 		slider.setMinorTickSpacing(5);
 		slider.setMajorTickSpacing(10);
@@ -36,22 +24,16 @@ public class Blender1 extends JFrame {
 		ChangeListener cl;
 		cl = new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				// Each time the user adjusts the slider, obtain the new
-				// blend percentage value and use it to blend the images.
 				int value = slider.getValue();
 				ip.setImage(blend(bi1, bi2, value / 100.0));
 			}
 		};
 		slider.addChangeListener(cl);
 		getContentPane().add(slider, BorderLayout.SOUTH);
-
-		// Display the first image, which corresponds to a 100% blend percentage.
 		ip.setImage(bi1);
 		pack();
 		setVisible(true);
 	}
-
-
 	public BufferedImage blend(BufferedImage bi1, BufferedImage bi2, double weight) {
 		if (bi1 == null) throw new NullPointerException("bi1 is null");
 
@@ -108,7 +90,6 @@ public class Blender1 extends JFrame {
 		BufferedImage bi3 = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		int rgbim[][] = new int[65][width];
 		int rgbim65[] = new int[width];
-
 		for (int row = 0; row < height; row++) {
 			for(int l=1;l<=64;l++){
 				bi[l].getRGB(0, row, width, 1, rgbim[l], 0, width);				
@@ -132,49 +113,11 @@ public class Blender1 extends JFrame {
 				}
 				rgbim65[col] = (r65 << 16) | (g65 << 8) | b65;
 			}
-
 			bi3.setRGB(0, row, width, 1, rgbim65, 0, width);
 		}
-
 		return bi3;
 	}
-
-	public static void main(String[] args) {
-		Blender1 blender = new Blender1();
-		try {
-			// Load first image from JAR file and draw image into a buffered image.
-			//ImageIcon ii1 = new ImageIcon (getClass ().getResource ("/data2/saras51.jpg"));
-			blender.bi1 = ImageIO.read(new File("./data/take1.png"));
-			//final BufferedImage bi1;
-			//bi1 = new BufferedImage (ii1.getIconWidth (), ii1.getIconHeight (),BufferedImage.TYPE_INT_RGB);
-			//Graphics2D g2d = bi1.createGraphics ();
-			//g2d.drawImage (ii1.getImage (), 0, 0, null);
-			//g2d.dispose ();
-			// Load second image from JAR file and draw image into a buffered image.
-			blender.bi2 = ImageIO.read(new File("./data/take2.png"));
-			//   ImageIcon ii2 = new ImageIcon (getClass ().getResource ("/data2/saras52.jpg"));
-			//   final BufferedImage bi2;
-			//   bi2 = new BufferedImage (ii2.getIconWidth (), ii2.getIconHeight (),
-			//	                BufferedImage.TYPE_INT_RGB);
-			//   g2d = bi2.createGraphics ();
-			//   g2d.drawImage (ii2.getImage (), 0, 0, null);
-			//   g2d.dispose ();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-		//blender.ImageFusion();
-		BufferedImage bufferImage = blender.blend(blender.bi1, blender.bi2, 0.50);
-		ImageView imageShow=new ImageView();
-		imageShow.drawImage(bufferImage);
-		try {
-			ImageIO.write(bufferImage, "PNG", new File("./data/saras5732.png"));
-		} catch(IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }
-
 class ImagePanel extends JPanel {
 	private BufferedImage bi;
 	void setImage(BufferedImage bi) {
