@@ -101,10 +101,10 @@ public class correlation {
         	Multi_Img[3]=ImageIO.read(new File("./data/new/h3.tif"));
         	Multi_Img[4]=ImageIO.read(new File("./data/new/h4.tif"));
         	
-        	final_Img[1]=ImageIO.read(new File("./data/new/output/w1.tif"));
-        	final_Img[2]=ImageIO.read(new File("./data/new/output/w2.tif"));
-        	final_Img[3]=ImageIO.read(new File("./data/new/output/w3.tif"));
-        	final_Img[4]=ImageIO.read(new File("./data/new/output/w4.tif"));
+        	final_Img[1]=ImageIO.read(new File("./data/new/waverage1.tif"));
+        	final_Img[2]=ImageIO.read(new File("./data/new/waverage2.tif"));
+        	final_Img[3]=ImageIO.read(new File("./data/new/waverage3.tif"));
+        	final_Img[4]=ImageIO.read(new File("./data/new/waverage4.tif"));
         	
         	//panImg=correlation.pan_imageToDoubleArray(pan[1]);
         	
