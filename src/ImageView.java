@@ -18,8 +18,9 @@ public class ImageView extends JFrame{
     }
     
     public void drawImage(BufferedImage image){
-        setSize(image.getWidth()+25, image.getHeight()+50);         
+        setSize(image.getWidth()+50, image.getHeight()+50);         
         signalPanel.setImage( image);
+        signalPanel.setBackground(Color.WHITE);
     }   
 }
 

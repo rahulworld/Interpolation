@@ -113,46 +113,50 @@ public class Fusion {
         double [][] img=null;
         double [][] img_interp=null;
         Mixer blen=new Mixer();
-        BufferedImage[] fuse=new BufferedImage[65];
-        BufferedImage[] Hysi_Img=new BufferedImage[65];
-        BufferedImage[] final_Img=new BufferedImage[65];
+        BufferedImage[] fuse=new BufferedImage[5];
+        BufferedImage[] final_Img=new BufferedImage[5];
+        BufferedImage[] Hysi_Img=new BufferedImage[5];
         BufferedImage TMC_IMG=null;
         try {
-        	TMC_IMG=ImageIO.read(new File("./data/tmc2561.png"));
-        	for(int j=1;j<=64;j++){
-        		Hysi_Img[j]=ImageIO.read(new File("./data/himg/h"+j+".png"));
-        		System.out.println("take"+j);
+        	TMC_IMG=ImageIO.read(new File("./data/new/p1.tif"));
+        	for(int j=1;j<=4;j++){
+        		Hysi_Img[j]=ImageIO.read(new File("./data/new/h"+j+".tif"));
+        		System.out.println("taking Multispectral image  "+j);
 	        }
 		} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 		}
-        for(int i=1;i<=64;i++){
+        for(int i=1;i<=4;i++){
         	fuse[i]=blen.blend(Hysi_Img[i], TMC_IMG,0.3);
         }
         ImageView imageView41 = new ImageView();
 		ImageView imageView31 = new ImageView();
-		ImageView imageView11 = new ImageView();
+
 		imageView41.drawImage(fuse[2]);
 		imageView31.drawImage(fuse[3]);
-		imageView11.drawImage(fuse[6]);
-        for(int i=1;i<=64;i++){
+
+        for(int i=1;i<=4;i++){
             Fusion cubicInterpolation2d = new Fusion();
             img = cubicInterpolation2d.imageToDoubleArray(fuse[i]);
-            img_interp = cubicInterpolation2d.interpolate(img,2);
+            img_interp = cubicInterpolation2d.interpolate(img,1);
+            System.out.println(img_interp.length+" "+img_interp[0].length);
             final_Img[i]= cubicInterpolation2d.doubleArrayToImage(img_interp);
-            System.out.println("Complete  "+i);
+            System.out.println("Complete Interpolated Image  "+i);
         }
 		ImageView imageView7 = new ImageView();
-		ImageView imageView8 = new ImageView();
+
 		imageView7.drawImage(final_Img[2]);
-		imageView8.drawImage(final_Img[6]);
+
         if (final_Img != null){
-            ImageView imageView = new ImageView();
-            imageView.drawImage(image);
+//            ImageView imageView = new ImageView();
+//            imageView.drawImage(image);
 
             try {
-				ImageIO.write(final_Img[3], "PNG", new File("./data/interpolate2.png"));
+				ImageIO.write(final_Img[1], "TIFF", new File("./data/new/output/w1.tif"));
+				ImageIO.write(final_Img[2], "TIFF", new File("./data/new/output/w2.tif"));
+				ImageIO.write(final_Img[3], "TIFF", new File("./data/new/output/w3.tif"));
+				ImageIO.write(final_Img[4], "TIFF", new File("./data/new/output/w4.tif"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
